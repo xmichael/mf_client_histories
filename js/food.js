@@ -40,7 +40,8 @@ function create_html_popup( feature ){
   <div>
       <h4>${props["Name"]}</h4>
       <h5>${props["Role"]}</h5>
-      <h6>${props["Address"]}</h6>
+      <h6>${props["Produce"]}</h6>
+      <h6><b>Address:</b> ${props["Address"]}</h6>
       <hr/>
       <div class="text-justify">${window.location.search=="?lang=cy"?
                   props["Summary-cy"]:props["Summary"]}

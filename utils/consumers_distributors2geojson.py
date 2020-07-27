@@ -42,7 +42,7 @@ with open(name_in, "r") as f_in:
         }
 
         # Keywords are created from  "Produce"
-        properties["Keywords"] = [k.strip() for k in properties["Produce"].split()]
+        properties["Keywords"] = [k.strip() for k in properties["Produce"].split(",")]
 
         # No Pictures for now
         properties["Pictures"] = []
