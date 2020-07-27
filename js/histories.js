@@ -1,6 +1,6 @@
 'use strict';
 
-import histories_data from '../data/histories/histories_data.js';
+import histories_data from '../data/producers_distributors.js';
 import {descriptions, keywords} from './histories_ui.js';
 
 /** global namespace */
@@ -17,9 +17,9 @@ function add_info(_map){
     };
     info.update = function (props) {
 	this._div.innerHTML = (props ?
-			       `<b>${props["Name of Farmer"]}</b><br/>
-      ${props["Name of Farm"]}<br/>
-      ${props["Date of Recording"]}`
+			       `<b>${props["Name"]}</b><br/>
+      ${props["Role"]}<br/>
+      ${props["Address"]}`
 			       : 'Click on a <b>mic</b> icon');
     };
 
@@ -31,32 +31,25 @@ function create_html_popup( feature ){
 
     var props = feature.properties;
     // image path is base/picture[X].jpg
-    var base = props["Clip Name"];
+    var base = props["ID"];
     var pics = props["Pictures"]? props["Pictures"][0] : undefined;
     /* create index by-base needed by onclick handlers */
     window.GLOBALS.history_props[base] = feature;
 
     return `
   <div>
-      <h4>${props["Name of Farmer"]}</h4>
-      <h5>${props["Name of Farm"]}</h5>
-      <h6>${props["Date of Recording"]}</h6>
+      <h4>${props["Name"]}</h4>
+      <h5>${props["Role"]}</h5>
+      <h6>${props["Address"]}</h6>
       <hr/>
       <div class="text-justify">${window.location.search=="?lang=cy"?
-                  props["Cymraeg"]:props["Summary"]}
+                  props["Summary-cy"]:props["Summary"]}
       </div>
       <div class="text-center">
         <button type="button" class="btn btn-link"
           onclick="GLOBALS.descriptions.modal('description_modal', GLOBALS.history_props.${base})">
           See more
         </button>
-      </div>
-      <div>
-        <audio controls>
-          <source src="./data/histories/opus/${base}.opus" type="audio/ogg">
-          <source src="./data/histories/mp3/${base}.mp3" type="audio/mpeg">
-          Your browser does not support the audio element
-        </audio>
       </div>
     </div>
   `
@@ -120,7 +113,7 @@ $(document).ready(function() {
     var osm = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
 	minZoom: 4,
-	maxZoom: 17
+	maxZoom: 18
     });
 
     /* Dyfi Biosphere Reserver outline */
@@ -156,7 +149,7 @@ $(document).ready(function() {
 
     spinner.show();
     setTimeout(function() {
-	spinner.hide()
+	spinner.hide();
     }, 1000);
 
     //console.log(histories_data);
