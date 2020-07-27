@@ -20,7 +20,7 @@ function add_info(_map){
 			       `<b>${props["Name"]}</b><br/>
       ${props["Role"]}<br/>
       ${props["Address"]}`
-			       : 'Click on a <b>mic</b> icon');
+			       : 'Click on a <b>food or store</b> icon');
     };
 
     return info.addTo(_map);
@@ -59,8 +59,12 @@ function create_html_popup( feature ){
 function add_histories_markers(_map, _histories, _info){
 
 
-    var historiesIcon = L.icon({
-	iconUrl: 'data/histories/mic.png',
+    var storeIcon = L.icon({
+	iconUrl: 'data/food/store_small.png',
+	iconSize: [32,47]
+    });
+    var foodIcon = L.icon({
+	iconUrl: 'data/food/food_small.png',
 	iconSize: [32,47]
     });
 
@@ -69,7 +73,7 @@ function add_histories_markers(_map, _histories, _info){
 	minZoom: 1,
 	maxZoom: 18,
 	pointToLayer: function(feature, latlng){
-            return L.marker(latlng, {icon: historiesIcon})
+	    return feature.properties["Role"].startsWith('P')? L.marker(latlng, {icon: foodIcon}):  L.marker(latlng, {icon: storeIcon});
 	},
 	onEachFeature: function(feature, layer){
             /** a) On mouse over/out (hover) update the info box.

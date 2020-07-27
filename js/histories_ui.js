@@ -69,7 +69,7 @@ var descriptions = {
       <div class="modal-dialog modal-lg mw-100" role="document">
         <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">${farmer}, ${farm}</h5>
+              <h5 class="modal-title">${name}, ${address}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -78,7 +78,7 @@ var descriptions = {
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-sm-6">
-                    <h5>${date}</h5>
+                    <h5>${keywords}</h5>
                     <h5>Keywords:</h5>
                     <div class="font-italic">
                       ${keywords}
