@@ -3,12 +3,12 @@ var descriptions = {
 
 	var props = feature.properties;
 	// image path is base/picture[X].jpg
-	var base = props["Clip Name"];
-	var farmer = props["Name of Farmer"];
-	var farm = props["Name of Farm"];
+	var base = props["Base"];
+	var name = props["Name"];
+	var address = props["Address"];
 	var description = props["Description"];
 	var keywords = props["Keywords"].join();
-	var date = props["Date of Recording"];
+	// var date = props["Date of Recording"];
 	var pics = props["Pictures"].length>0 ? props["Pictures"]:
             ["No image available"];
 	/** Assumes paths are ./base/pictures[0].jpg */
