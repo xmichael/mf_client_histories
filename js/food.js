@@ -1,7 +1,7 @@
 'use strict';
 
 import histories_data from '../data/producers_distributors.js';
-import {descriptions, keywords} from './histories_ui.js';
+import {descriptions, keywords} from './food_ui.js';
 
 /** global namespace */
 window.GLOBALS = {};
