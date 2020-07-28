@@ -157,8 +157,11 @@ var keywords = {
     createHTML: function( kw_set, enabled ){
 	var enabled = enabled || new Set();
 
-	var html='<legend>Filter:</legend>';
+	var html='<legend>Produce:</legend>';
 	for ( var k of kw_set){
+	    if (k === ""){
+		continue;
+	    }
 	    html+=`
       <div>`;
 	    if ( enabled.has(k)){
