@@ -1,6 +1,6 @@
 'use strict';
 
-import histories_data from '../data/producers_distributors.js';
+import histories_data from '../data/food/producers_distributors.js';
 import {descriptions, keywords} from './food_ui.js';
 
 /** global namespace */
@@ -72,7 +72,7 @@ function add_histories_markers(_map, _histories, _info){
     /** Add markers */
     var hist_layer = L.geoJSON(_histories, {
 	minZoom: 1,
-	maxZoom: 18,
+	maxZoom: 20,
 	pointToLayer: function(feature, latlng){
 	    return feature.properties["Role"].startsWith('P')? L.marker(latlng, {icon: foodIcon}):  L.marker(latlng, {icon: storeIcon});
 	},
@@ -118,13 +118,14 @@ $(document).ready(function() {
     var osm = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 	attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
 	minZoom: 4,
-	maxZoom: 18
+	maxNativeZoom: 19,
+	maxZoom: 20
     });
 
     /* Dyfi Biosphere Reserver outline */
     var boundary = L.geoJSON(dataservices_boundary, {
 	minZoom: 3,
-	maxZoom: 18,
+	maxZoom: 20,
 	style: {
 	    "color": "#000000",
 	    "stroke": true,
@@ -139,7 +140,7 @@ $(document).ready(function() {
 	center: [52.6, -3.76],
 	zoom: 10,
 	minZoom: 9,
-	maxZoom: 18,
+	maxZoom: 20,
 	fadeAnimation: false,
 	layers: [osm]
     });
