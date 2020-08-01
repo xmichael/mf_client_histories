@@ -28,32 +28,7 @@ function add_info(_map){
 
 /** Create an HTML div to display a histories feature */
 function create_html_popup( feature ){
-
-    var props = feature.properties;
-    // image path is base/picture[X].jpg
-    var base = props["ID"];
-    var pics = props["Pictures"]? props["Pictures"][0] : undefined;
-    /* create index by-base needed by onclick handlers */
-    window.GLOBALS.history_props[base] = feature;
-
-    return `
-  <div>
-      <h4>${props["Name"]}</h4>
-      <h5>${props["Role"]}</h5>
-      <h6>${props["Produce"]}</h6>
-      <h6><b>Address:</b> ${props["Address"]}</h6>
-      <hr/>
-      <div class="text-justify">${window.location.search=="?lang=cy"?
-                  props["Summary-cy"]:props["Summary"]}
-      </div>
-      <div class="text-center">
-        <button type="button" class="btn btn-link"
-          onclick="GLOBALS.descriptions.modal('description_modal', GLOBALS.history_props.${base})">
-          See more
-        </button>
-      </div>
-    </div>
-  `
+   
 }
 
 /** Add the markers on map and with dynamic popup content */
@@ -61,11 +36,11 @@ function add_histories_markers(_map, _histories, _info){
 
 
     var storeIcon = L.icon({
-	iconUrl: 'data/food/store_small.png',
+	iconUrl: 'data/food/distributor.svg',
 	iconSize: [32,47]
     });
     var foodIcon = L.icon({
-	iconUrl: 'data/food/food_small.png',
+	iconUrl: 'data/food/producer.svg',
 	iconSize: [32,47]
     });
 
@@ -89,9 +64,17 @@ function add_histories_markers(_map, _histories, _info){
 		},
 		click: function(e){ //re-center when user clicks a point
 		    _map.panTo(e.target.getLatLng());
+		    /* NOTE: overriding short popup for now. Immediately open the modal when clicking an icon*/
+		    GLOBALS.descriptions.modal('description_modal', GLOBALS.history_props[layer.feature.properties["ID"]]);
 		}
             });
-            layer.bindPopup(create_html_popup(feature));
+	    /* NOTE: overriding short popup for now. Immediately open the modal when clicking an icon*/
+	    var props = feature.properties;
+	    // image path is base/picture[X].jpg
+	    var base = props["ID"];
+	    var pics = props["Pictures"]? props["Pictures"][0] : undefined;
+	    /* create index by-base needed by onclick handlers */
+	    window.GLOBALS.history_props[base] = feature;
 	}
     });
 
