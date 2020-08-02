@@ -37,11 +37,11 @@ function add_histories_markers(_map, _histories, _info){
 
     var storeIcon = L.icon({
 	iconUrl: 'data/food/distributor.svg',
-	iconSize: [32,47]
+	iconSize: [38.4, 56.4]
     });
     var foodIcon = L.icon({
 	iconUrl: 'data/food/producer.svg',
-	iconSize: [32,47]
+	iconSize: [38.4, 56.4]
     });
 
     /** Add markers */
