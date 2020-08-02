@@ -14,8 +14,10 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument("input_file", help="input CSV file")
 parser.add_argument("output_file", help="input JSON file")
-args = parser.parse_args()
 
+# print --help when no args are supplied
+# args = parser.parse_args()
+args = parser.parse_args(args=None if sys.argv[1:] else ["--help"])
 
 name_in = args.input_file
 name_out = args.output_file
@@ -35,17 +37,22 @@ with open(name_in, "r") as f_in:
                 "Address",
                 "Summary",
                 "Description",
-                "Produce",
+                "Contact name",
+                "Facebook",
                 "Role",
-                "Contact",
+                "Produce",
             )
         }
 
         # Keywords are created from  "Produce"
-        properties["Keywords"] = [k.strip() for k in properties["Produce"].split(",")]
+        properties["Keywords"] = [
+            k.strip().lower() for k in properties["Produce"].split(",")
+        ]
 
-        # No Pictures for now
-        properties["Pictures"] = []
+        # Picture titles
+        properties["Picture title"] = [
+            k.strip() for k in row["Picture title"].split(",")
+        ]
 
         # No Translation for now
         properties["Keywords-cy"] = properties["Keywords"]
