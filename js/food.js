@@ -143,7 +143,7 @@ $(document).ready(function() {
 
     //console.log(histories_data);
     var set = keywords.createSet(histories_data,"Keywords");
-    $('#histories_keywords').html(keywords.createHTML(set));
+    $('#food_keywords').html(keywords.createHTML(set));
 
     /* handler when user clicks on a filter */
     keywords.bind(
