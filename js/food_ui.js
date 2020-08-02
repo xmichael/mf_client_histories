@@ -2,16 +2,15 @@ var descriptions = {
     createHTML: function(feature){
 
 	var props = feature.properties;
-	// image path is base/picture[X].jpg
-	var base = props["Base"];
+	// image path is base/picture[X]_scaled.jpg
+	var base = props["ID"];
 	var name = props["Name"];
 	var address = props["Address"];
 	var description = props["Description"];
 	var keywords = props["Keywords"].join();
 	// var date = props["Date of Recording"];
-	var pics = props["Pictures"].length>0 ? props["Pictures"]:
+	var pics = props["Picture title"].length>0 ? props["Picture title"]:
             ["No image available"];
-	/** Assumes paths are ./base/pictures[0].jpg */
 
 	/* create carousel html for all pictures */
 	var _carousel_html = `
@@ -40,7 +39,7 @@ var descriptions = {
 		_carousel_html += `<div class="carousel-item">`;
 	    }
 	    _carousel_html += `
-                <img class="d-block w-100" src="data/histories/pictures/${base}/${pics[i]}.jpg" alt="Slide ${i}">
+                <img class="d-block w-100" src="data/food/pictures/${base}/${pics[i]}_scaled.jpg" alt="Slide ${i}">
                     <div class="carousel-caption d-none d-md-block bg-dark mb-4">
                       <h5>${pics[i]}</h5>
                     </div>
@@ -108,7 +107,7 @@ var descriptions = {
     },
     createTestHTML: function(feature){
 
-	/** Assumes paths are ./base/pictures[0].jpg */
+	/** Assumes paths are ./{ID}/{picture title[0]}_scaled.jpg */
 	var html=`
       <!-- modal-{sm,lg,xl} NOTE: overriden with mw-100 -->
       <div class="modal-dialog modal-lg mw-100" role="document">

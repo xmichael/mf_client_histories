@@ -70,9 +70,9 @@ function add_histories_markers(_map, _histories, _info){
             });
 	    /* NOTE: overriding short popup for now. Immediately open the modal when clicking an icon*/
 	    var props = feature.properties;
-	    // image path is base/picture[X].jpg
+	    // image path is ID/picture[X]_scaled.jpg
 	    var base = props["ID"];
-	    var pics = props["Pictures"]? props["Pictures"][0] : undefined;
+	    var pics = props["Picture title"]? props["Picture title"][0] : undefined;
 	    /* create index by-base needed by onclick handlers */
 	    window.GLOBALS.history_props[base] = feature;
 	}

@@ -50,9 +50,12 @@ with open(name_in, "r") as f_in:
         ]
 
         # Picture titles
-        properties["Picture title"] = [
-            k.strip() for k in row["Picture title"].split(",")
-        ]
+        if row["Picture title"] == "":
+            properties["Picture title"] = []
+        else:
+            properties["Picture title"] = [
+                k.strip() for k in row["Picture title"].split(",")
+            ]
 
         # No Translation for now
         properties["Keywords-cy"] = properties["Keywords"]
