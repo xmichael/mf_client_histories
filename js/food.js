@@ -1,6 +1,6 @@
 'use strict';
 
-import histories_data from '../data/food/producers_distributors.js';
+import food_data from '../data/food/food.js';
 import {descriptions, keywords} from './food_ui.js';
 
 /** global namespace */
@@ -134,15 +134,15 @@ $(document).ready(function() {
     boundary.addTo(map);
 
     var info = add_info(map);
-    var hist_layer = add_histories_markers(map, histories_data, info);
+    var hist_layer = add_histories_markers(map, food_data, info);
 
     spinner.show();
     setTimeout(function() {
 	spinner.hide();
     }, 1000);
 
-    //console.log(histories_data);
-    var set = keywords.createSet(histories_data,"Keywords");
+    //console.log(food_data);
+    var set = keywords.createSet(food_data,"Keywords");
     $('#food_keywords').html(keywords.createHTML(set));
 
     /* handler when user clicks on a filter */
