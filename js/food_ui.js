@@ -65,7 +65,7 @@ var descriptions = {
 
 	var html=`
       <!-- modal-{sm,lg,xl} NOTE: overriden with mw-100 -->
-      <div class="modal-dialog modal-lg mw-100" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">${name}, ${address}</h5>
