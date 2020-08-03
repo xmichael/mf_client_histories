@@ -17,22 +17,8 @@ var descriptions = {
 	/* create carousel html for all pictures */
 	var _carousel_html = `
     <div id="carouselPictures" class="carousel" data-interval="false" data-ride="carousel">
-                          <ol class="carousel-indicators my-4">
                           `;
-	for (var i=0; i<pics.length; i++){
-	    if ( i == 0){
-		_carousel_html += `
-        <li data-target="#carouselPictures" data-slide-to="0" class="active"></li>
-        `;
-	    }
-	    else{
-		_carousel_html += `
-        <li data-target="#carouselPictures" data-slide-to="${i}"></li>
-        `;
-	    }
-	}
-
-	_carousel_html += `</ol><div class="carousel-inner">`;
+	_carousel_html += `<div class="carousel-inner">`;
 	for (var i=0; i<pics.length; i++){
 	    if ( i == "0"){
 		_carousel_html += `<div class="carousel-item active">`;
