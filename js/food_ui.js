@@ -11,7 +11,8 @@ var descriptions = {
 	// var date = props["Date of Recording"];
 	var pics = props["Picture title"].length>0 ? props["Picture title"]:
             ["No image available"];
-
+	var facebook = props["Facebook"];
+	
 	/* create carousel html for all pictures */
 	var _carousel_html = `
     <div id="carouselPictures" class="carousel" data-interval="false" data-ride="carousel">
@@ -62,10 +63,17 @@ var descriptions = {
 	_carousel_html += `
         </div> <!--carousel-->
         `;
-
+	console.log(facebook);
+	//only add "follow" section if facebook is defined
+	var _follow_html = "";
+	if (facebook.length > 0){
+	    _follow_html = `<h5 class="text-muted">Follow</h5>
+                    <hr>
+                    <a href="${facebook}"><i class="fa fa-facebook-square fa-2x"></i></a>`;
+	}	
 	var html=`
-      <!-- modal-{sm,lg,xl} NOTE: overriden with mw-100 -->
-      <div class="modal-dialog modal-lg" role="document">
+      <!-- modal-{sm,lg,xl} NOTE: overriden with mw-100 & w-75 (for 75% width) -->
+      <div class="modal-dialog modal-lg mw-100 w-75" role="document">
         <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title">${name}, ${address}</h5>
@@ -77,22 +85,16 @@ var descriptions = {
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-sm-6">
-                    <h5>${keywords}</h5>
-                    <h5>Keywords:</h5>
-                    <div class="font-italic">
-                      ${keywords}
-                    </div>
+                    <h5 class="text-muted">Tags</h5>
                     <hr>
-                    <h5>Description</h5>
-                    <div id="detailed-description">
+                    <span class="font-italic">${keywords}</span>
+                    <h5 class="pt-3 text-muted">Description</h5>
+                    <hr>
                       ${description}
-                    </div>
                   </div>
                   <div class="col-sm-6">
                     ${_carousel_html}
-                    <hr>
-                    <h5>Related Material</h5>
-                    Not currently available
+                    ${_follow_html}
                   </div>
                 </div>
               </div>
