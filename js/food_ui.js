@@ -5,6 +5,7 @@ var descriptions = {
 	// image path is base/picture[X]_scaled.jpg
 	var base = props["ID"];
 	var name = props["Name"];
+	var contact_name = props["Contact name"];
 	var address = props["Address"];
 	var description = props["Description"];
 	var keywords = props["Keywords"].join();
@@ -63,20 +64,27 @@ var descriptions = {
 	_carousel_html += `
         </div> <!--carousel-->
         `;
-	console.log(facebook);
+
 	//only add "follow" section if facebook is defined
 	var _follow_html = "";
 	if (facebook.length > 0){
 	    _follow_html = `<h5 class="text-muted">Follow</h5>
                     <hr>
                     <a href="${facebook}"><i class="fa fa-facebook-square fa-2x"></i></a>`;
-	}	
+	}
+
+	//add contact section (even if empty)
+	var _contact_html =` <h5 class="text-muted">Contact</h5>
+                    <hr>
+                    ${contact_name}
+                    <p>${address}`;
+	
 	var html=`
       <!-- modal-{sm,lg,xl} NOTE: overriden with mw-100 & w-75 (for 75% width) -->
       <div class="modal-dialog modal-lg mw-100 w-75" role="document">
         <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">${name}, ${address}</h5>
+              <h5 class="modal-title">${name}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -94,6 +102,7 @@ var descriptions = {
                   </div>
                   <div class="col-sm-6">
                     ${_carousel_html}
+                    ${_contact_html}
                     ${_follow_html}
                   </div>
                 </div>
