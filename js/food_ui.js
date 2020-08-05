@@ -79,7 +79,7 @@ var descriptions = {
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-sm-6">
-                    <h5 class="text-muted">Tags</h5>
+                    <h5 class="text-muted">Produce</h5>
                     <hr>
                     <span class="font-italic">${keywords}</span>
                     <h5 class="pt-3 text-muted">Description</h5>
