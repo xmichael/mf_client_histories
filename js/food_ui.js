@@ -11,8 +11,12 @@ var descriptions = {
 	var keywords = props["Keywords"].join();
 	// var date = props["Date of Recording"];
 	var pics = props["Picture title"];
+	var telephone = props["Telephone"];
+	var email = props["Email"];
+	var website = props["Website"];
 	var facebook = props["Facebook"];
 
+	
 	/* create carousel section when there are pictures available */
 	var _carousel_html = "";
 	if (pics.length > 0){
@@ -67,11 +71,25 @@ var descriptions = {
                     <a href="${facebook}"><i class="fa fa-facebook-square fa-2x"></i></a>`;
 	}
 
+
+	console.log(telephone);
+	var __contact_name_html = contact_name != "" ? `<b>${contact_name}</b><br>` : "";
+	var __telephone_html = telephone != "" ? `<i>${telephone}</i><br>` : "";
+	var __homepage_html = website != "" ? `<a href="${website}">homepage</a><br>` : "";
+	var __address_html = address != "" ? `${address}<br>` : "";
+	var __email_html = email != "" ? `<a href="mailto:${email}">${email}</a><br>` : "";
+	    
 	//add contact section (even if empty)
 	var _contact_html =` <h5 class="text-muted">Contact</h5>
                     <hr>
-                    ${contact_name}
-                    <p>${address}                    
+                    ${__contact_name_html}
+                    <small>                    
+                    ${__address_html}
+                    ${__telephone_html}
+                    ${__homepage_html}
+                    ${__email_html}
+                    </small>
+<p>
 `;
 	
 	var html=`
