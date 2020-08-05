@@ -51,6 +51,14 @@ var descriptions = {
         </div> <!--carousel-->
         `;
 
+	//onlt add "produce" section when keywords are defined
+	var _produce_html = "";
+	if (keywords.length > 0){
+	    _produce_html = `                    <h5 class="text-muted">Produce</h5>
+                    <hr>
+                    <span class="font-italic">${keywords}</span>`;
+	}
+	
 	//only add "follow" section if facebook is defined
 	var _follow_html = "";
 	if (facebook.length > 0){
@@ -79,9 +87,7 @@ var descriptions = {
               <div class="container-fluid">
                 <div class="row">
                   <div class="col-sm-6">
-                    <h5 class="text-muted">Produce</h5>
-                    <hr>
-                    <span class="font-italic">${keywords}</span>
+                      ${_produce_html}
                     <h5 class="pt-3 text-muted">Description</h5>
                     <hr>
                       ${description}
