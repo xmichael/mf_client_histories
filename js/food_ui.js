@@ -10,47 +10,47 @@ var descriptions = {
 	var description = props["Description"];
 	var keywords = props["Keywords"].join();
 	// var date = props["Date of Recording"];
-	var pics = props["Picture title"].length>0 ? props["Picture title"]:
-            ["No image available"];
+	var pics = props["Picture title"];
 	var facebook = props["Facebook"];
-	
-	/* create carousel html for all pictures */
-	var _carousel_html = `
+
+	/* create carousel section when there are pictures available */
+	var _carousel_html = "";
+	if (pics.length > 0){
+	    _carousel_html = `<h5 class="text-muted">Pictures</h5>
+                    <hr>
     <div id="carouselPictures" class="carousel" data-interval="false" data-ride="carousel">
-                          `;
-	_carousel_html += `<div class="carousel-inner">`;
-	for (var i=0; i<pics.length; i++){
-	    if ( i == "0"){
-		_carousel_html += `<div class="carousel-item active">`;
-	    }
-	    else{
-		_carousel_html += `<div class="carousel-item">`;
-	    }
-	    _carousel_html += `
+              <div class="carousel-inner">`;
+	    for (var i=0; i<pics.length; i++){
+		if ( i == "0"){
+		    _carousel_html += `<div class="carousel-item active">`;
+		}
+		else{
+		    _carousel_html += `<div class="carousel-item">`;
+		}
+		_carousel_html += `
                 <img class="d-block w-100" src="data/food/pictures/${base}/${pics[i]}_scaled.jpg" alt="Slide ${i}">
                     <div class="carousel-caption d-none d-md-block bg-dark mb-4">
                       <h5>${pics[i]}</h5>
                     </div>
-          </div>
-          `;
-	}
-
-	//only add carousel prev-next controls when there is more than one image
-	if (pics.length > 1){
+                </div>`;
+	    }
+	    
+	    //only add carousel prev-next controls when there is more than one image
+	    if (pics.length > 1){
+		_carousel_html += `
+              <a class="carousel-control-prev" href="#carouselPictures" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselPictures" role="button" data-slide="next">
+                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                 <span class="sr-only">Next</span>
+              </a>`;
+	    }
 	    _carousel_html += `
-          <a class="carousel-control-prev" href="#carouselPictures" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselPictures" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>`;
+                  </div> <!--carousel-->`;
 	}
-	_carousel_html += `
-        </div> <!--carousel-->
-        `;
-
+	
 	//onlt add "produce" section when keywords are defined
 	var _produce_html = "";
 	if (keywords.length > 0){
@@ -71,7 +71,8 @@ var descriptions = {
 	var _contact_html =` <h5 class="text-muted">Contact</h5>
                     <hr>
                     ${contact_name}
-                    <p>${address}`;
+                    <p>${address}                    
+`;
 	
 	var html=`
       <!-- modal-{sm,lg,xl} NOTE: overriden with mw-100 & w-75 (for 75% width) -->
