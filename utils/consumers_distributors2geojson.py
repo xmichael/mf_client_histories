@@ -33,10 +33,11 @@ with open(name_in, "r") as f_in:
             k: row[k]
             for k in (
                 "ID",
-                "Name",
+                "Name (EN)",
+                "Name (CY)",
                 "Address",
-                "Summary",
-                "Description",
+                "Description (EN)",
+                "Description (CY)",
                 "Contact name",
                 "Telephone",
                 "Email",
@@ -60,9 +61,8 @@ with open(name_in, "r") as f_in:
                 k.strip() for k in row["Picture title"].split(",")
             ]
 
-        # No Translation for now
+        # No translation for keywords for now
         properties["Keywords-cy"] = properties["Keywords"]
-        properties["Summary-cy"] = properties["Summary"]
 
         coords = row["Location"].strip().split(",")
         (lat, lon) = map(float, coords)

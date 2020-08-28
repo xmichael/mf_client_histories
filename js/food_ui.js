@@ -1,13 +1,22 @@
+var utils = {
+    get_translated_property: function(prop, key){
+	if (window.location.search=="?lang=cy"){
+	    return prop[`${key} (CY)`];
+	}
+	return prop[`${key} (EN)`];
+    }
+};
+
 var descriptions = {
     createHTML: function(feature){
 
 	var props = feature.properties;
 	// image path is base/picture[X]_scaled.jpg
 	var base = props["ID"];
-	var name = props["Name"];
+	var name = utils.get_translated_property(props,"Name");
 	var contact_name = props["Contact name"];
 	var address = props["Address"];
-	var description = props["Description"];
+	var description = utils.get_translated_property(props,"Description");
 	var keywords = props["Keywords"].join();
 	// var date = props["Date of Recording"];
 	var pics = props["Picture title"];
@@ -213,4 +222,4 @@ var keywords = {
     }
 };
 
-export {descriptions, keywords};
+export {utils, descriptions, keywords};

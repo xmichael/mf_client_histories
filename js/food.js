@@ -1,7 +1,7 @@
 'use strict';
 
 import food_data from '../data/food/food.js';
-import {descriptions, keywords} from './food_ui.js';
+import {descriptions, keywords, utils} from './food_ui.js';
 
 /** global namespace */
 window.GLOBALS = {};
@@ -17,7 +17,7 @@ function add_info(_map){
     };
     info.update = function (props) {
 	this._div.innerHTML = (props ?
-			       `<b>${props["Name"]}</b><br/>
+			       `<b>${utils.get_translated_property(props,"Name")}</b><br/>
       ${props["Role"]}<br/>
       ${props["Address"]}`
 			       : 'Click on a <b>food or store</b> icon');
