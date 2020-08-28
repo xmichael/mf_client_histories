@@ -17,7 +17,7 @@ var descriptions = {
 	var contact_name = props["Contact name"];
 	var address = props["Address"];
 	var description = utils.get_translated_property(props,"Description");
-	var keywords = props["Keywords"].join();
+	var keywords = utils.get_translated_property(props,"Keywords").join(', ');
 	// var date = props["Date of Recording"];
 	var pics = props["Picture title"];
 	var telephone = props["Telephone"];
@@ -174,7 +174,7 @@ var keywords = {
     createSet: function (geojson, property){
 	var set = new Set();
 	for ( var f of geojson["features"] ){
-	    for ( var k of f["properties"][property]){
+	    for ( var k of utils.get_translated_property(f["properties"],property) ){
 		set.add(k);
 	    }
 	}

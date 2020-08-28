@@ -158,7 +158,7 @@ $(document).ready(function() {
 
 		// check each feature's keywords have at least one keyword in the "checked" set.
 		// If yes, make those features visible
-		for ( var k of layer.feature.properties["Keywords"]){
+		for ( var k of utils.get_translated_property(layer.feature.properties, "Keywords") ){
 		    if (checked.has(k)){
 			if ( layer.getElement().style.display == 'none'){
 			    // console.log("re-adding removed layer:" + layer.feature.properties["Clip Name"]);

@@ -44,13 +44,17 @@ with open(name_in, "r") as f_in:
                 "Website",
                 "Facebook",
                 "Role",
-                "Produce",
+                "Produce (EN)",
+                "Produce (CY)",
             )
         }
 
         # Keywords are created from  "Produce"
-        properties["Keywords"] = [
-            k.strip().lower() for k in properties["Produce"].split(",")
+        properties["Keywords (EN)"] = [
+            k.strip().lower() for k in properties["Produce (EN)"].split(",")
+        ]
+        properties["Keywords (CY)"] = [
+            k.strip().lower() for k in properties["Produce (CY)"].split(",")
         ]
 
         # Picture titles
@@ -60,9 +64,6 @@ with open(name_in, "r") as f_in:
             properties["Picture title"] = [
                 k.strip() for k in row["Picture title"].split(",")
             ]
-
-        # No translation for keywords for now
-        properties["Keywords-cy"] = properties["Keywords"]
 
         coords = row["Location"].strip().split(",")
         (lat, lon) = map(float, coords)
