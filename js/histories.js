@@ -145,7 +145,9 @@ $(document).ready(function() {
 	fadeAnimation: false,
 	layers: [osm]
     });
-
+    
+    map.attributionControl.setPrefix('');
+    
     window.GLOBALS.leaflet_map = map;
 
     /* sequence matters for click events on map (lastest grabs clicks) */
