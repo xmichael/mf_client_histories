@@ -158,7 +158,7 @@ $(document).ready(function() {
 
     spinner.show();
     setTimeout(function() {
-	spinner.hide()
+	spinner.hide();
     }, 1000);
 
     //console.log(histories_data);

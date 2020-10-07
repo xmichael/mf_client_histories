@@ -92,8 +92,9 @@ var descriptions = {
                   <div class="col-sm-6">
                     ${_carousel_html}
                     <hr>
-                    <h5>Related Material</h5>
-                    Not currently available
+                    <!-- We don't have any yet -->
+                    <!-- <h5>Related Material</h5>
+                    Not currently available -->
                   </div>
                 </div>
               </div>
