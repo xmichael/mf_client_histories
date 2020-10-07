@@ -7,20 +7,73 @@ import {descriptions, keywords} from './histories_ui.js';
 window.GLOBALS = {};
 /*********************/
 
+/* Show intro modal and change visibility of all elements that have a class "en" or "cy"
+ * depending on "lang" parameter 
+ */
+
+function add_intro_modal(_id) {
+    var html = "";
+    if (window.location.search=="?lang=cy"){
+	html = `
+      <!-- modal-{sm,lg,xl} -->
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Hanesion Llafar</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Cliciwch ar eicon a gwrandewch ar atgofion (yn Gymraeg) ffermwyr cenhedlaeth hŷn yn
+	Bro Ddyfi - sydd wedi gweld llawer o newidiadau sylweddol yn eu hoes ac yn aml yn
+	cofio pan oedd amaethyddiaeth yn yr ardal yn fwy cymysg. Trawsgrifiadau cyfyngedig
+	yn Saesneg ar gael hefyd.</p>
+            </div>
+          </div>
+       </div>
+      </div> <!-- modal-dialog -->
+    `;
+    }
+    else{
+	html = `
+      <!-- modal-{sm,lg,xl} -->
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Oral Histories</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Click on an icon and listen to the recollections (in Welsh) of older generation farmers in
+                 Bro Ddyfi - who have seen many significant changes in their lifetimes and often recall
+                 when agriculture in the area was more mixed. Limited transcripts in English also
+                 available.</p>
+            </div>
+          </div>
+       </div>
+      </div> <!-- modal-dialog -->
+    `;
+    }
+    $('#' + _id).html(html).modal();
+}
+
 function add_info(_map){
     /** create interactive info panel */
     var info = L.control({position:'topright'});
     info.onAdd = function (_map) {
-	this._div = L.DomUtil.create('div', 'info legend');
-	this.update();
-	return this._div;
+        this._div = L.DomUtil.create('div', 'info legend');
+        this.update();
+        return this._div;
     };
     info.update = function (props) {
-	this._div.innerHTML = (props ?
-			       `<b>${props["Name of Farmer"]}</b><br/>
+        this._div.innerHTML = (props ?
+                               `<b>${props["Name of Farmer"]}</b><br/>
       ${props["Name of Farm"]}<br/>
       ${props["Date of Recording"]}`
-			       : 'Click on a <b>mic</b> icon');
+                               : 'Click on a <b>mic</b> icon');
     };
 
     return info.addTo(_map);
@@ -59,7 +112,7 @@ function create_html_popup( feature ){
         </audio>
       </div>
     </div>
-  `
+  `;
 }
 
 /** Add the markers on map and with dynamic popup content */
@@ -67,34 +120,34 @@ function add_histories_markers(_map, _histories, _info){
 
 
     var historiesIcon = L.icon({
-	iconUrl: 'data/histories/mic.png',
-	iconSize: [32,47]
+        iconUrl: 'data/histories/mic.png',
+        iconSize: [32,47]
     });
 
     /** Add markers */
     var hist_layer = L.geoJSON(_histories, {
-	minZoom: 1,
-	maxZoom: 18,
-	pointToLayer: function(feature, latlng){
-            return L.marker(latlng, {icon: historiesIcon})
-	},
-	onEachFeature: function(feature, layer){
+        minZoom: 1,
+        maxZoom: 18,
+        pointToLayer: function(feature, latlng){
+            return L.marker(latlng, {icon: historiesIcon});
+        },
+        onEachFeature: function(feature, layer){
             /** a) On mouse over/out (hover) update the info box.
              *   b) On mouse click recenter the map
              */
             layer.on({
-    		mouseover: function(e){
-		    _info.update(layer.feature.properties);
-		},
-    		mouseout: function(e){
-        	    _info.update();
-		},
-		click: function(e){ //re-center when user clicks a point
-		    _map.panTo(e.target.getLatLng());
-		}
+                mouseover: function(e){
+                    _info.update(layer.feature.properties);
+                },
+                mouseout: function(e){
+                    _info.update();
+                },
+                click: function(e){ //re-center when user clicks a point
+                    _map.panTo(e.target.getLatLng());
+                }
             });
             layer.bindPopup(create_html_popup(feature));
-	}
+        }
     });
 
     hist_layer.addTo(_map);
@@ -108,9 +161,9 @@ $(document).ready(function() {
 
     /** export Globals -- needed for inline onclick events and for debugging */
     window.GLOBALS = {
-	history_props: {},   // features dictionary indexed by "Clip Name"
-	descriptions : descriptions, // descriptions UI functions
-	leaflet_map : undefined
+        history_props: {},   // features dictionary indexed by "Clip Name"
+        descriptions : descriptions, // descriptions UI functions
+        leaflet_map : undefined
     };
 
     var spinner = $('.spinner');
@@ -118,32 +171,32 @@ $(document).ready(function() {
     // Base layers
     //  .. OpenStreetMap
     var osm = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-	attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
-	minZoom: 4,
-	maxZoom: 17
+        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+        minZoom: 4,
+        maxZoom: 17
     });
 
     /* Dyfi Biosphere Reserver outline */
     var boundary = L.geoJSON(dataservices_boundary, {
-	minZoom: 3,
-	maxZoom: 18,
-	style: {
-	    "color": "#000000",
-	    "stroke": true,
-	    "fill": false,
-	    "weight": 5,
-	    "opacity": 0.65
-	}
+        minZoom: 3,
+        maxZoom: 18,
+        style: {
+            "color": "#000000",
+            "stroke": true,
+            "fill": false,
+            "weight": 5,
+            "opacity": 0.65
+        }
     });
 
     // Map
     var map = L.map('map', {
-	center: [52.6, -3.76],
-	zoom: 10,
-	minZoom: 9,
-	maxZoom: 18,
-	fadeAnimation: false,
-	layers: [osm]
+        center: [52.6, -3.76],
+        zoom: 10,
+        minZoom: 9,
+        maxZoom: 18,
+        fadeAnimation: false,
+        layers: [osm]
     });
     
     map.attributionControl.setPrefix('');
@@ -158,18 +211,20 @@ $(document).ready(function() {
 
     spinner.show();
     setTimeout(function() {
-	spinner.hide();
+        spinner.hide();
     }, 1000);
 
+    add_intro_modal('description_modal');
+    
     //console.log(histories_data);
     var set = keywords.createSet(histories_data,"Keywords");
     $('#histories_keywords').html(keywords.createHTML(set));
 
     /* handler when user clicks on a filter */
     keywords.bind(
-	(checked)=>{
-	    hist_layer.eachLayer((layer) => {
-		// corner-case: when the user deselects all-keywords then enable all features (i.e. none == all aka filters are disabled)
+        (checked)=>{
+            hist_layer.eachLayer((layer) => {
+                // corner-case: when the user deselects all-keywords then enable all features (i.e. none == all aka filters are disabled)
 		if (checked.size == 0){
 		    //console.log("empty filter. Enabling all features.");
 		    layer.getElement().style.display = '';	      
