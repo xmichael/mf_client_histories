@@ -7,6 +7,67 @@ import {descriptions, keywords, utils} from './food_ui.js';
 window.GLOBALS = {};
 /*********************/
 
+/* Show intro modal and change visibility of all elements that have a class "en" or "cy"
+ * depending on "lang" parameter 
+ */
+
+function add_intro_modal(_id) {
+    var html = "";
+    if (window.location.search=="?lang=cy"){
+	html = `
+      <!-- modal-{sm,lg,xl} -->
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Cynhyrchwyr a Dosbarthwyr</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Mae&#39;r map yn dangos mentrau (cliciwch ar eiconau am fanylion) sy&#39;n ymwneud â system
+fwyd leol Bro Ddyfi - mae&#39;r pwyslais ar gynnyrch sy&#39;n cael ei dyfu, ei werthu a&#39;i fwyta yn
+yr ardal leol gan ddefnyddio arferion agroecolegol.
+I ni, mae&#39;n bwysig adeiladu&#39;r economi fwyd leol a datblygu&#39;r farchnad leol. Mae&#39;n helpu i
+fynd i&#39;r afael â&#39;r argyfwng hinsawdd, yn gwella diogelwch bwyd ac, os caiff ei dyfu gan
+ddefnyddio dulliau agroecolegol nad ydynt yn ddwys, sy&#39;n gyfeillgar i natur, mae&#39;n helpu
+i fynd i&#39;r afael â cholli bioamrywiaeth yng Nghymru.</p>
+<p>Os hoffech drafod ychwanegu eich busnes, cysylltwch â ni.</p>
+            </div>
+          </div>
+       </div>
+      </div> <!-- modal-dialog -->
+    `;
+    }
+    else{
+	html = `
+      <!-- modal-{sm,lg,xl} -->
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Producers &amp; Distributors</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+               <p>The map shows enterprises (click on icons for detail) involved in the local Bro Ddyfi
+		  food system - the emphasis is on produce grown, sold and consumed in the local area
+		  using agroecological practices.
+		  For us, it’s important to build the local food economy and develop the local market. It
+		  helps address the climate crisis, improves food security and, if grown using non intensive,
+		  nature friendly agroecological methods, helps address the loss of biodiversity in Wales.</p>
+
+               <p>If you would like to discuss having your business added, please get in touch.</p>
+            </div>
+          </div>
+       </div>
+      </div> <!-- modal-dialog -->
+    `;
+    }
+    $('#' + _id).html(html).modal();
+}
+
 function add_info(_map){
     /** create interactive info panel */
     var info = L.control({position:'topright'});
@@ -143,7 +204,9 @@ $(document).ready(function() {
 	spinner.hide();
     }, 1000);
 
-    //console.log(food_data);
+    add_intro_modal('description_modal');
+    
+    // console.log(food_data);
     var set = keywords.createSet(food_data,"Keywords");
     $('#food_keywords').html(keywords.createHTML(set));
 
