@@ -7,11 +7,9 @@ html, body, #map {
   overflow: hidden;
 }
 
-h1, h2 {
+h1, h2, h3, h4, h5 {
   color: darkgreen;
 }
-
-/* left-hand pane */
 
 fieldset {
   overflow-y: scroll;
@@ -37,6 +35,17 @@ fieldset {
   opacity: 0.7;
 }
 
+/*
+.legend i {
+    width: 160px;
+    height: 80px;
+    float: right;
+    clear: both;
+    margin-left: 8px;
+    margin-top: 8px;
+    opacity: 0.7;
+}
+*/
 /****** specify global spinner ******/
 .spinner {
   /* display:none; */
